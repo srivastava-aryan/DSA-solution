@@ -208,3 +208,22 @@ int findLengthofLoop(Node* head){      //to determine if there is a loop in the 
     }
     return 0;
 }
+
+string isPalindrome(Node* head){  //to check whether a linked list is palindrome or not(BRUTE)
+    Node* temp = head;              
+    stack<int> st;                      //STACK is used to store the data values and matching
+    while(temp!=NULL){
+        st.push(temp->data);
+        temp=temp->next;
+    }
+    temp=head;
+    while(temp!=NULL){
+        if(temp->data!=st.top()){
+            return "NO";
+        }
+        st.pop();
+        temp=temp->next;
+    }
+    return "YES";
+}
+
