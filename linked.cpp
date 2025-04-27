@@ -227,3 +227,44 @@ string isPalindrome(Node* head){  //to check whether a linked list is palindrome
     return "YES";
 }
 
+Node* separateOddandEven(Node* head){
+    Node* temp = head;
+    vector<int> arr;
+    while(temp!=NULL && temp->next!=NULL){
+        arr.push_back(temp->data);
+        temp=temp->next->next;
+    }
+    if(temp){
+        arr.push_back(temp->data);
+    }
+    temp=head->next;
+    while(temp!=NULL && temp->next->next){
+        arr.push_back(temp->data);
+        temp=temp->next->next;
+    }
+    if(temp){
+        arr.push_back(temp->data);
+    }
+    int i=0;
+    temp=head;
+    while(temp!=NULL){
+        temp->data=arr[i];
+        i++;
+        temp=temp->next;
+    }
+    return head;
+}
+
+Node* deleteMiddleNode(Node* head){   ///to delete middle node of linked list
+    if(head==NULL || head->next==NULL)return NULL;  ///edge case
+    Node* fast = head->next->next;          //advantage step to fast to get one node before middle node
+    Node* slow = head;
+    while(fast!=NULL && fast->next!=NULL){
+        fast=fast->next->next;
+        slow=slow->next;
+    }
+    Node* delNode = slow->next;
+    slow->next = slow->next->next;
+    delete delNode;
+    return head;
+}
