@@ -110,3 +110,37 @@ Node* rotateRight(Node* head, int k) {  // to rotate a linked-list k times
     return head;
     
 }
+
+Node* getKthNode(Node* temp ,int k){
+    k-=1;
+    while(temp!=NULL && k>0){
+        k--;
+        temp=temp->next;
+    }
+    return temp;
+}
+
+Node* kReverse(Node* head, int k){   //to reverse the linked list in k groups 
+    Node* temp = head;
+    Node* prevlast = NULL;
+    while(temp!=NULL){
+        Node* kthNode = getKthNode(temp,k);
+        if(kthNode==NULL){
+            if(prevlast) prevlast->next = temp;
+            break;
+        }
+
+        Node* nextnode = kthNode->next;
+        kthNode->next = NULL;
+        reverseLinked(temp);
+        if(temp == head){
+            head = kthNode;
+        }else{
+            prevlast->next = kthNode;
+        }
+
+        prevlast=temp;
+        temp = nextnode;
+    }
+    return head;
+}
